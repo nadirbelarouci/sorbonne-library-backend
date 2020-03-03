@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "file-store.books-path",
+      "type": "java.lang.String",
+      "description": "Description for file-store.books-path."
+    },
+    {
+      "name": "file-store.books-indices-path",
+      "type": "java.lang.String",
+      "description": "Description for file-store.books-indices-path."
+    },
+    {
+      "name": "file-store.book-max-file-size",
+      "type": "java.lang.Integer",
+      "description": "Description for file-store.book-max-file-size."
+    },
+    {
+      "name": "file-store.book-suffix",
+      "type": "java.lang.String",
+      "description": "Description for file-store.book-suffix."
+    }
+  ] }
