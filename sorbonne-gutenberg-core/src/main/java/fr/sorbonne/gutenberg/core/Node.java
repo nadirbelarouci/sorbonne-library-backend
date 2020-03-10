@@ -58,6 +58,14 @@ public class Node {
         return Collections.emptyList();
     }
 
+    public boolean contains(String value) {
+        Node current = this;
+        for (int i = 0; i < value.length() && current != null; i++) {
+            current = current.children.get(value.charAt(i));
+        }
+        return current != null;
+    }
+
     private List<Word> collect() {
         List<Word> list = new ArrayList<>();
         if (word != null)

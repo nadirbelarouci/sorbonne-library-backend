@@ -1,18 +1,24 @@
 package fr.sorbonne.gutenberg.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, of = "bookId")
 public class Book {
+    @DynamoDBHashKey(attributeName = "book_id")
     private String bookId;
 
+    @DynamoDBAttribute(attributeName = "title")
     private String title;
 
+    @DynamoDBAttribute(attributeName = "author")
     private String author;
+
 
 }

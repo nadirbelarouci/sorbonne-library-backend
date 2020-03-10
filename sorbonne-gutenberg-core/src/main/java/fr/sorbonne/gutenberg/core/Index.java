@@ -11,8 +11,8 @@ import java.util.stream.Stream;
 public class Index {
     private static Map<String, int[]> kmpTable = new ConcurrentHashMap<>();
     private Stream<String> lines;
-    private String title;
-    private String author;
+    private String title = "";
+    private String author = "";
     private int currentLine;
     private Map<String, Word> words = new ConcurrentHashMap<>();
 
@@ -56,19 +56,15 @@ public class Index {
         int[] table = kmpTable.computeIfAbsent(word, pattern -> KMP.kmpTable(word));
         Word record = words.computeIfAbsent(word, pattern -> new Word(word));
         KMP.matchAll(word.toCharArray(), table, line.toCharArray()).forEach(column -> record.addPosition(i, column, line));
-
     }
 
     private void resolveTitle(String line) {
-
-        if (title == null && line.contains("title:")) {
+        if (title.isEmpty() && line.contains("title:")) {
             title = line.replace("title:", "").strip();
-        }
-        else if (author == null && line.contains("author:")) {
+        } else if (author.isEmpty() && line.contains("author:")) {
             author = line.replace("author:", "").strip();
         }
     }
-
 
 
     public Map<String, Word> getWords() {

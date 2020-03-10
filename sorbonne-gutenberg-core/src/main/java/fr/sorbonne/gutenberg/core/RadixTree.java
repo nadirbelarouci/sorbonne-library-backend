@@ -27,6 +27,10 @@ public class RadixTree {
         return root.search(value);
     }
 
+    public boolean contains(String value) {
+        return root.contains(value);
+    }
+
     private void add(Index index) {
         var records = index.getWords()
                 .values()

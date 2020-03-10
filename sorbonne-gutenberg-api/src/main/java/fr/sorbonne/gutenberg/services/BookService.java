@@ -17,14 +17,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class BookService {
 
     private static final Logger logger = LoggerFactory.getLogger(BookService.class);
-
 
     private final FileStoreService fileStoreService;
     private final FileStoreProperties fileStoreProperties;
@@ -47,13 +45,21 @@ public class BookService {
 
         try {
             String path = String.format("%s", fileStoreProperties.getBooksPath());
-            String filename = String.format("%s-%s", book.getOriginalFilename(), UUID.randomUUID());
+            String filename = String.format("%s", generateBookId(book));
             fileStoreService.save(path, filename, Optional.of(metadata), book.getInputStream());
             return filename;
         } catch (IOException | FileStoreException e) {
             logger.error("Uploading book failed : {}", e.getMessage());
             throw new FileStoreException("file.upload.failed");
         }
+    }
+
+    private String generateBookId(MultipartFile book) {
+        String fileName = book.getName();
+        int dashIndex = fileName.indexOf("-");
+        return dashIndex != -1 ?
+                fileName.substring(0, dashIndex) :
+                fileName.substring(0, fileName.indexOf("."));
     }
 
     /**
@@ -78,7 +84,7 @@ public class BookService {
      * @param indexName the Index id
      * @return the book file as byte stream
      */
-    @Cacheable
+    @Cacheable("indices")
     public RadixTree downloadIndex(String indexName) {
         return new RadixTree(download(fileStoreProperties.getBooksIndicesPath(), indexName));
     }
@@ -107,7 +113,7 @@ public class BookService {
      */
     private void checkIsTxtThenThrow(MultipartFile book) {
         if (book.getContentType() != null && !book.getContentType().toLowerCase().contains("text/plain")) {
-            logger.error("Uploading book failed : not a PDF file");
+            logger.error("Uploading book failed : not a Txt file");
             throw new FileStoreException("file.upload.invalid-type");
         }
     }

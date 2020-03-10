@@ -1,0 +1,9 @@
+I need search API 
+get files names from ranking file start+size
+create radix tree for each index 
+for each index, search word 
+if result empty then repeat until searched all files
+
+
+Result from radix tree search is List<Word>
+I need to return 

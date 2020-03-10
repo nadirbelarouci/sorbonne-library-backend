@@ -16,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 public class Indexer implements RequestHandler<S3Event, String> {
 
@@ -49,10 +48,9 @@ public class Indexer implements RequestHandler<S3Event, String> {
             Index index = new Index(objectData);
 
             ByteArrayOutputStream bos = index.save();
-            String dstKey = UUID.randomUUID().toString();
-            Book book = new Book(dstKey, index.getTitle(), index.getAuthor());
+            Book book = new Book(srcKey, index.getTitle(), index.getAuthor());
             SaveBookHandler.save(book);
-            dstKey += "-index.txt";
+            String dstKey = srcKey + "-index.txt";
             // Re-encode book to target format
             InputStream is = new ByteArrayInputStream(bos.toByteArray());
             // Set Content-Length and Content-Type

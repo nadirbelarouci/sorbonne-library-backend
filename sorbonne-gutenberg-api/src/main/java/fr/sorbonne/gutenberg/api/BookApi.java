@@ -21,13 +21,13 @@ public class BookApi {
     private BookService bookService;
     private SearchService searchService;
 
-    @GetMapping("/{name}/{value}")
-    public ResponseEntity<String> search(@PathVariable String name, @PathVariable String value) {
+    @GetMapping("/{bookId}/{value}")
+    public ResponseEntity<String> search(@PathVariable String bookId, @PathVariable String value) {
         return ResponseEntity.ok("");
     }
 
-    @GetMapping("/{name}/regex/{value}")
-    public ResponseEntity<String> searchRegex(@PathVariable String name, @PathVariable String value) {
+    @GetMapping("/{bookId}/regex/{value}")
+    public ResponseEntity<String> searchRegex(@PathVariable String bookId, @PathVariable String value) {
         return ResponseEntity.ok("");
     }
 

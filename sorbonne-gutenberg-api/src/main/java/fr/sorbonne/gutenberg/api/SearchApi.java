@@ -26,20 +26,5 @@ public class SearchApi {
     }
 
 
-    @GetMapping("/book/{bookName}/{value}")
-    public ResponseEntity<String> searchBookByValue(@PathVariable String bookName,
-                                                    @PathVariable String value,
-                                                    @RequestParam(required = false) Integer start) {
-
-        return ResponseEntity.ok("");
-    }
-
-    @GetMapping("/book/{bookName}/regex/{pattern}")
-    public ResponseEntity<String> searchBookByRegex(@PathVariable String bookName,
-                                                    @PathVariable String pattern,
-                                                    @RequestParam(required = false) Integer start) {
-
-        return ResponseEntity.ok("");
-    }
 
 }
